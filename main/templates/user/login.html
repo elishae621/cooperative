@@ -1,0 +1,31 @@
+{% extends "main/base.html" %} 
+{% load static %} 
+{% load widget_tweaks %} 
+
+
+{% block main_content %}
+<div class="w-500 mw-full">
+    <div class="card">
+        <h2 class="card-title"> Login </h2>
+        <form method="POST"
+            class="w-400 mw-full">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email"
+                    class="required">Email</label>
+                {% render_field form.email class+="form-control" placeholder="Email" %}
+                {{ form.email.errors }}
+            </div>
+            <div class="form-group">
+                <label for="password"
+                    class="required">Password / Access Code</label>
+                {% render_field form.password class+="form-control" placeholder="Password" %}
+                {{ form.password.errors }}
+            </div>
+            <input class="btn btn-primary btn-block"
+                type="submit"
+                value="Sign up">
+        </form>
+    </div>
+</div> 
+{% endblock main_content %}
