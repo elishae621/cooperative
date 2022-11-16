@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path, PurePath
+from django.urls import reverse_lazy
 import environ
 import os
 
@@ -153,3 +154,5 @@ MEDIA_ROOT = PurePath.joinpath(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "user.User"
+
+LOGIN_URL = reverse_lazy("login")

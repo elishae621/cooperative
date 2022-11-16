@@ -1,5 +1,7 @@
 from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
+from django.views.generic.base import View
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
 from user.forms import LoginForm
 
@@ -24,3 +26,10 @@ class LoginView(FormView):
         user.raw_password = password
         user.save()
         return super().form_valid(form)
+
+
+
+class LogoutView(View):
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return HttpResponseRedirect(reverse('main:home'))
