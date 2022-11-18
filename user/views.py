@@ -32,4 +32,4 @@ class LoginView(FormView):
 class LogoutView(View):
     def post(self, request, *args, **kwargs):
         logout(request)
-        return HttpResponseRedirect(reverse('main:home'))
+        return HttpResponseRedirect(reverse('login'))

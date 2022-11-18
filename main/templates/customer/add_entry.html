@@ -1,0 +1,63 @@
+{% extends "main/base.html" %} {% load static %} {% load widget_tweaks %} {% block main_content %} <div
+    class="w-500 mw-full">
+    <div class="card">
+        <h2 class="card-title"> Add Entry </h2>
+        <form method="POST"
+            class="w-400 mw-full"> {% csrf_token %} <div class="form-group">
+                <label for="entry_type"
+                    class="required">Entry Type</label>
+                {% render_field form.entry_type class+="form-control" placeholder="choose one" %}
+                {{ form.entry_type.errors }} 
+            </div>
+            <div class="form-group">
+                <label for="customer_id"
+                    class="required">Customer ID</label>
+                {% render_field form.customer_id class+="form-control" placeholder="Customer ID" %}
+                {{ form.customer_id.errors }} 
+            </div>
+            <div class="form-group">
+                <label for="customer_name"
+                    class="required">Customer Name</label>
+                <input type="text" name="customer_name" class="form-control customer_name" required disabled>
+            </div>
+            <div class="form-group">
+                <label for="amount"
+                    class="required">Amount</label>
+                {% render_field form.amount class+="form-control" placeholder="Amount" %}
+                {{ form.amount.errors }} 
+            </div>
+            <input class="btn btn-primary btn-block submit-btn" type="submit" value="Submit" disabled >
+        </form>
+    </div>
+</div> 
+{% endblock main_content %}
+
+{% block js %}
+<script>
+
+    $("#id_customer_id").keyup(function () {
+    if ($("#id_customer_id").val() != "") {
+        console.log('sent')
+        $.ajax({
+            url: "{% url 'get-customer-name' %}",
+            data: {
+                'customer_id': $("#id_customer_id").val()
+            },
+            success: function (data) {
+                console.log(data)
+                if (data["ok"]) {
+                    $(".customer_name").val(data["name"]);
+                    $('.submit-btn').prop('disabled', false);
+                } else {
+                    $(".customer_name").val("");
+                    $('.submit-btn').prop('disabled', true);
+                }
+            }
+        });
+    } else { 
+        $(".customer_name").val(""); 
+        $('.submit-btn').prop('disabled', true);
+    }
+    });
+</script>
+{% endblock js %}
