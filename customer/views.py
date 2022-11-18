@@ -1,5 +1,6 @@
 from django.views.generic.edit import FormView, CreateView
 from django.views.generic.base import View
+from django.views.generic.detail import DetailView
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from customer.forms import EntryForm
@@ -26,3 +27,10 @@ class AjaxReturnCustomerID(View):
         except Customer.DoesNotExist:
             data['ok'] = False
         return JsonResponse(data=data)
+    
+    
+class CustomerDetailView(DetailView):
+    template_name = "customer/customer.html"
+    model = Customer 
+    context_object_name = "customer"
+    query_pk_and_slug = True

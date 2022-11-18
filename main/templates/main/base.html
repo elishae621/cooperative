@@ -81,22 +81,23 @@
                 <!-- Sidebar links and titles -->
                 <h5 class="sidebar-title">General</h5>
                 <div class="sidebar-divider"></div>
-                <a href="#"
-                    class="sidebar-link active">Overview</a>
+                <a href="{% url 'overview' %}"
+                    class="sidebar-link overview">Overview</a>
                 <a href="{% url 'add-entry' %}"
-                    class="sidebar-link">Add Entry</a>
+                    class="sidebar-link add-entry">Add Entry</a>
                 <a href="#"
-                    class="sidebar-link">Customers</a>
-                <div class="sidebar-link">Deposits</div>
+                    class="sidebar-link customers">Customers</a>
                 <a href="#"
-                    class="sidebar-link">Withdrawals</a>
+                    class="sidebar-link deposits">Deposits</a>
+                <a href="#"
+                    class="sidebar-link withdrawals">Withdrawals</a>
                 <br />
                 <h5 class="sidebar-title">Admin Only</h5>
                 <div class="sidebar-divider"></div>
                 <a href="#"
-                    class="sidebar-link">Users</a>
+                    class="sidebar-link users">Users</a>
                 <a href="#"
-                    class="sidebar-link">Add User</a>
+                    class="sidebar-link add-user">Add User</a>
             </div>
         </div>
         <!-- Sidebar end -->
@@ -119,6 +120,17 @@
     $('.logout-btn').on('click', function () {
         $('form.logout-form').submit();
     });
+
+    $('.sidebar-link a').removeClass("active");
+    switch(window.location.pathname) {
+        case "{% url 'overview' %}": 
+            $('.sidebar-link.overview').addClass("active");
+            break;
+        case "{% url 'add-entry' %}": 
+            $('.sidebar-link.add-entry').addClass("active");
+            break;
+
+    }
     </script>
     
     {% block js %}{% endblock js %}

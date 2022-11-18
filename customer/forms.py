@@ -1,11 +1,20 @@
 from django import forms
 from user.forms import MyBaseForm
 from customer.models import Deposit, Withdrawal, Customer
+from django.forms import ValidationError
+
 
 class EntryForm(MyBaseForm):
     entry_type = forms.ChoiceField(choices=[(1, 'DEPOSIT'), (2, "WITHDRAWAL")], required=True)
     customer_id = forms.CharField(required=True)
     amount = forms.IntegerField(required=True, min_value=1)
+
+    def clean_amount(self):
+        amount = self.cleaned_data.get("amount")
+        customer = Customer.objects.get(id=self.cleaned_data["customer_id"])
+        if amount > customer.balance:
+            raise ValidationError(f"Available balance is {customer.balance}")
+        return amount
 
     def save(self, user):
         customer = Customer.objects.get(id=self.cleaned_data["customer_id"])

@@ -27,6 +27,7 @@ urlpatterns = [
     
     path("add-entry/", customer.AddEntryView.as_view(), name="add-entry"),
     path("get-customer-name/", customer.AjaxReturnCustomerID.as_view(), name="get-customer-name"),
+    path("customer/<int:id>/", customer.CustomerDetailView.as_view(), name="customer"),
     
     path("login/", user.LoginView.as_view(), name="login"),
     path("logout/", user.LogoutView.as_view(), name="logout")

@@ -1,6 +1,7 @@
 from django.db import models
 from autoslug import AutoSlugField
 from customer.utils import generate_filename
+from django.urls import reverse
 
 
 class Customer(models.Model):
@@ -19,6 +20,10 @@ class Customer(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('customer', kwargs={"id": self.id})
+    
     
 class Deposit(models.Model):
     customer = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
