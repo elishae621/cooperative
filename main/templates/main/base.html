@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +19,8 @@
     <title>Cooperative</title>
     <!-- Halfmoon CSS -->
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon.min.css"
+        rel="stylesheet" />
+    <link href="{% static 'main/static/css/styles.css' %}"
         rel="stylesheet" />
 </head>
 
@@ -85,25 +88,25 @@
                     class="sidebar-link overview">Overview</a>
                 <a href="{% url 'add-entry' %}"
                     class="sidebar-link add-entry">Add Entry</a>
-                <a href="#"
+                <a href="{% url 'customers' %}"
                     class="sidebar-link customers">Customers</a>
-                <a href="#"
+                <a href="{% url 'deposits' %}"
                     class="sidebar-link deposits">Deposits</a>
-                <a href="#"
+                <a href="{% url 'withdrawals' %}"
                     class="sidebar-link withdrawals">Withdrawals</a>
                 <br />
                 <h5 class="sidebar-title">Admin Only</h5>
                 <div class="sidebar-divider"></div>
-                <a href="#"
+                <a href="{% url 'users' %}"
                     class="sidebar-link users">Users</a>
-                <a href="#"
+                <a href="{% url 'add-user' %}"
                     class="sidebar-link add-user">Add User</a>
             </div>
         </div>
         <!-- Sidebar end -->
         <!-- Content wrapper start -->
         <div class="content-wrapper">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center p-20">
                 {% block main_content %}{% endblock main_content %}
             </div>
         </div>
@@ -129,7 +132,21 @@
         case "{% url 'add-entry' %}": 
             $('.sidebar-link.add-entry').addClass("active");
             break;
-
+        case "{% url 'customers' %}": 
+            $('.sidebar-link.customers').addClass("active");
+            break;
+        case "{% url 'deposits' %}": 
+            $('.sidebar-link.deposits').addClass("active");
+            break;
+        case "{% url 'withdrawals' %}": 
+            $('.sidebar-link.withdrawals').addClass("active");
+            break;
+        case "{% url 'users' %}": 
+            $('.sidebar-link.users').addClass("active");
+            break;
+        case "{% url 'add-user' %}": 
+            $('.sidebar-link.add-user').addClass("active");
+            break;
     }
     </script>
     

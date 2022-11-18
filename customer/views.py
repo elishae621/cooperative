@@ -1,10 +1,11 @@
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView
 from django.views.generic.base import View
+from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from customer.forms import EntryForm
-from customer.models import Customer
+from customer.models import Customer, Deposit, Withdrawal
 
 
 class AddEntryView(FormView):
@@ -34,3 +35,22 @@ class CustomerDetailView(DetailView):
     model = Customer 
     context_object_name = "customer"
     query_pk_and_slug = True
+    
+    
+class CustomerListView(ListView):
+    template_name = "customer/customers.html"
+    model = Customer
+    context_object_name = "customers"
+    
+
+class DepositListView(ListView):
+    template_name = "customer/deposits.html"
+    model = Deposit 
+    context_object_name = "deposits"
+    
+
+class WithdrawalListView(ListView):
+    template_name = "customer/withdrawals.html"
+    model = Withdrawal 
+    context_object_name = "withdrawals"
+    

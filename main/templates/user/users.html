@@ -1,0 +1,43 @@
+{% extends "main/base.html" %} {% load static %}
+ {% block main_content %} 
+{% if users %}
+<div class="table-responsive">
+<table class="table table-bordered ">
+  <thead>
+    <tr>
+      <th>S/N</th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date Joined</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Last Login</th>
+      <th>Deposits Entered</th>
+      <th>Withdrawals Entered</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.date_joined }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ user.last_login }}</td>
+      <td>{{ user.deposit_set.count }}</td>
+      <td>{{ user.withdrawal_set.count }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p>No users yet</p>
+{% endif %}
+{% endblock main_content %}
+
+{% block js %}
+
+{% endblock js %}

@@ -13,6 +13,13 @@ class MyBaseForm(forms.Form):
         kwargs_new = {**kwargs, 'error_class': MyErrorList,
                       'label_suffix': ''}
         super().__init__(*args, **kwargs_new)
+        
+
+class MyBaseModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        kwargs_new = {**kwargs, 'error_class': MyErrorList,
+                      'label_suffix': ''}
+        super().__init__(*args, **kwargs_new)
 
 
 class LoginForm(MyBaseForm):
@@ -37,3 +44,10 @@ class LoginForm(MyBaseForm):
             raise ValidationError('incorrect password')
         return password
     
+
+
+
+class UserCreateForm(MyBaseModelForm):
+    class Meta:
+        model = User 
+        fields = ("name", "email", "phone", "address")

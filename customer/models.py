@@ -22,7 +22,7 @@ class Customer(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('customer', kwargs={"id": self.id})
+        return reverse('customer', kwargs={"pk": self.id})
     
     
 class Deposit(models.Model):

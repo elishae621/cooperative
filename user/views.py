@@ -1,9 +1,11 @@
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
+from django.views.generic.list import ListView
 from django.views.generic.base import View
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
-from user.forms import LoginForm
+from user.forms import LoginForm, UserCreateForm
+from user.models import User
 
 
 class LoginView(FormView):
@@ -33,3 +35,16 @@ class LogoutView(View):
     def post(self, request, *args, **kwargs):
         logout(request)
         return HttpResponseRedirect(reverse('login'))
+    
+
+class UserListView(ListView):
+    template_name = "user/users.html"
+    model = User 
+    context_object_name = "users"
+    
+
+class UserCreateView(CreateView):
+    template_name = "user/add_user.html"
+    model = User 
+    form_class = UserCreateForm
+    success_url = reverse_lazy("users")

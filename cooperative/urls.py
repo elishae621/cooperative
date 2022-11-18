@@ -27,7 +27,13 @@ urlpatterns = [
     
     path("add-entry/", customer.AddEntryView.as_view(), name="add-entry"),
     path("get-customer-name/", customer.AjaxReturnCustomerID.as_view(), name="get-customer-name"),
-    path("customer/<int:id>/", customer.CustomerDetailView.as_view(), name="customer"),
+    path("customer/<int:pk>/", customer.CustomerDetailView.as_view(), name="customer"),
+    path("customers/", customer.CustomerListView.as_view(), name="customers"),
+    path("deposits/", customer.DepositListView.as_view(), name="deposits"),
+    path("withdrawals/", customer.WithdrawalListView.as_view(), name="withdrawals"),
+    
+    path("users/", user.UserListView.as_view(), name="users"),
+    path("add-user", user.UserCreateView.as_view(), name="add-user"),
     
     path("login/", user.LoginView.as_view(), name="login"),
     path("logout/", user.LogoutView.as_view(), name="logout")

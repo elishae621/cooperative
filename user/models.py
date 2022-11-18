@@ -64,11 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['name',]
 
     def __str__(self):
-        return self.slug
-
-    def get_absolute_url(self):
-        return reverse('user:profile', kwargs={'slug': self.slug})
-
+        return self.name
 
 class CustomAnonymousUser(DjangoAnonymousUser):
     ip = None
