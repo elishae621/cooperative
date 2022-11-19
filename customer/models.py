@@ -27,7 +27,7 @@ class Customer(models.Model):
     
     
 class Deposit(models.Model):
-    customer = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, null=True, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey("user.User", null=True, blank=False, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     last_saved = models.DateTimeField(auto_now=True)
@@ -37,7 +37,7 @@ class Deposit(models.Model):
     
     
 class Withdrawal(models.Model):
-    customer = models.ForeignKey(Customer, null=False, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, null=True, blank=False, on_delete=models.CASCADE)
     user = models.ForeignKey("user.User", null=True, blank=False, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     last_saved = models.DateTimeField(auto_now=True)
