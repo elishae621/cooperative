@@ -88,6 +88,8 @@
                     class="sidebar-link overview">Overview</a>
                 <a href="{% url 'add-entry' %}"
                     class="sidebar-link add-entry">Add Entry</a>
+                <a href="{% url 'add-customer' %}"
+                    class="sidebar-link add-customer">Add Customer</a>
                 <a href="{% url 'customers' %}"
                     class="sidebar-link customers">Customers</a>
                 <a href="{% url 'deposits' %}"
@@ -95,18 +97,20 @@
                 <a href="{% url 'withdrawals' %}"
                     class="sidebar-link withdrawals">Withdrawals</a>
                 <br />
+                {% if user.is_staff %}
                 <h5 class="sidebar-title">Admin Only</h5>
                 <div class="sidebar-divider"></div>
                 <a href="{% url 'users' %}"
                     class="sidebar-link users">Users</a>
                 <a href="{% url 'add-user' %}"
                     class="sidebar-link add-user">Add User</a>
+                {% endif %}
             </div>
         </div>
         <!-- Sidebar end -->
         <!-- Content wrapper start -->
         <div class="content-wrapper">
-            <div class="d-flex justify-content-center p-20">
+            <div class="d-flex justify-content-center align-content-center flex-column p-20">
                 {% block main_content %}{% endblock main_content %}
             </div>
         </div>
@@ -131,6 +135,9 @@
             break;
         case "{% url 'add-entry' %}": 
             $('.sidebar-link.add-entry').addClass("active");
+            break;
+        case "{% url 'add-customer' %}": 
+            $('.sidebar-link.add-customer').addClass("active");
             break;
         case "{% url 'customers' %}": 
             $('.sidebar-link.customers').addClass("active");

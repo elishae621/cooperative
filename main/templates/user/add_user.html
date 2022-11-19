@@ -1,20 +1,18 @@
-{% extends "main/base.html" %} {% load static %} {% load widget_tweaks %} {% block main_content %} <div
-    class="w-500 mw-full">
-    <div class="card">
-        <h2 class="card-title"> Add User </h2>
-        <form method="POST"
-            class="w-400 mw-full"> {% csrf_token %} 
-            {% for field in form %}
-            <div class="form-group">
-                <label for="entry_type"
-                    class="required">{{ field.label_tag }}</label>
-                {% render_field field class+="form-control" %}
-                {{ field.errors }} 
-            </div>
-            {% endfor %}
-            <input class="btn btn-primary btn-block submit-btn" type="submit" value="Submit" >
-        </form>
-    </div>
+{% extends "main/base.html" %} {% load static %} {% load widget_tweaks %} {% block main_content %}
+<div class="card w-500 mw-full m-auto">
+    <h2 class="card-title"> Add User </h2>
+    <form method="POST"
+        class=""> {% csrf_token %} 
+        {% for field in form %}
+        <div class="form-group">
+            <label for="entry_type"
+                class="required">{{ field.label_tag }}</label>
+            {% render_field field class+="form-control" %}
+            {{ field.errors }} 
+        </div>
+        {% endfor %}
+        <input class="btn btn-primary btn-block submit-btn" type="submit" value="Submit" >
+    </form>
 </div> 
 {% endblock main_content %}
 

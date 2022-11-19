@@ -50,4 +50,4 @@ class LoginForm(MyBaseForm):
 class UserCreateForm(MyBaseModelForm):
     class Meta:
         model = User 
-        fields = ("name", "email", "phone", "address")
+        fields = ("name", "email", "access_code", "phone", "address")

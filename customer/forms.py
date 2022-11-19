@@ -1,5 +1,5 @@
 from django import forms
-from user.forms import MyBaseForm
+from user.forms import MyBaseForm, MyBaseModelForm
 from customer.models import Deposit, Withdrawal, Customer
 from django.forms import ValidationError
 
@@ -39,3 +39,8 @@ class EntryForm(MyBaseForm):
         customer.save()
         return customer
     
+
+class CustomerCreateForm(MyBaseModelForm):
+    class Meta:
+        model = Customer 
+        fields = ("name", "email", "phone", "address", "passport")

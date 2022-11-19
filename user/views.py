@@ -6,6 +6,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
 from user.forms import LoginForm, UserCreateForm
 from user.models import User
+from user.mixins import StaffRequiredMixin
 
 
 class LoginView(FormView):
@@ -37,14 +38,20 @@ class LogoutView(View):
         return HttpResponseRedirect(reverse('login'))
     
 
-class UserListView(ListView):
+class UserListView(StaffRequiredMixin, ListView):
     template_name = "user/users.html"
     model = User 
     context_object_name = "users"
     
 
-class UserCreateView(CreateView):
+class UserCreateView(StaffRequiredMixin, CreateView):
     template_name = "user/add_user.html"
     model = User 
     form_class = UserCreateForm
     success_url = reverse_lazy("users")
+    
+    def form_valid(self, form):
+        user = form.save()
+        user.set_password(form.cleaned_data.get('access_code', None))
+        user.save()
+        return HttpResponseRedirect(self.success_url)

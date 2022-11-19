@@ -19,7 +19,7 @@
     <tr>
       <td>{{ forloop.counter }}</td>
       <td>{{ customer.id }}</td>
-      <td>{{ customer.name }}</td>
+      <td><a href="{{ customer.get_absolute_url }}">{{ customer.name }}</a></td>
       <td>{{ customer.date_added }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.address }}</td>

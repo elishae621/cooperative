@@ -48,7 +48,7 @@ class CustomAccountManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=50, unique=False, null=True, blank=True)
     slug = AutoSlugField(populate_from='email', unique_with=['id', 'name'])
-    raw_password = models.CharField(max_length=30, unique=False, null=True, blank=True)
+    access_code = models.CharField(max_length=30, unique=False, null=True, blank=True)
     email = models.EmailField(unique=True, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True, unique=True)
     address = models.CharField(max_length=100, null=True, blank=True)

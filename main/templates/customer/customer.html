@@ -1,0 +1,64 @@
+{% extends "main/base.html" %} {% load static %}
+ {% block main_content %} 
+<div class="row">
+<div class="col-md-8">
+<div class="table-responsive">
+<table class="table table-bordered ">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>{{ customer.name }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Customer ID</td><td>{{ customer.id }}</td></tr>
+    <tr><td>Balance</td><td>{{ customer.balance }}</td></tr>
+    <tr><td>Total Deposits</td><td>{{ total_deposit }}</td></tr>
+    <tr><td>Total withdrawals</td><td>{{ total_withdrawal }}</td></tr>
+  </tbody>
+</table>
+</div>
+</div>
+<div class="col-md-4 d-flex justify-content-center align-content-center">
+<img src="{{ customer.passport.url }}" class="img-fluid rounded-circle w-250 p-10" alt="passport">
+</div>
+</div>
+<div class="mt-20">
+<div class="table-responsive">
+<table class="table table-bordered ">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Deposit</th>
+      <th>Withdrawal</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    {% if entry.is_deposit %}
+    <tr>
+      <td>{{ entry.date_created }}</td>
+      <td>{{ entry.amount }}</td>
+      <td>-</td>
+      <td>{{ entry.balance }}</td>
+    </tr>
+    {% endif %}
+    {% if entry.is_withdrawal %}
+    <tr>
+      <td>{{ entry.date_created }}</td>
+      <td>-</td>
+      <td>{{ entry.amount }}</td>
+      <td>{{ entry.balance }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock main_content %}
+
+{% block js %}
+
+{% endblock js %}

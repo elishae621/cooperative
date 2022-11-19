@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf.urls.static import static
+from django.conf import settings
 from main import views as main 
 from user import views as user
 from customer import views as customer
@@ -28,6 +29,7 @@ urlpatterns = [
     path("add-entry/", customer.AddEntryView.as_view(), name="add-entry"),
     path("get-customer-name/", customer.AjaxReturnCustomerID.as_view(), name="get-customer-name"),
     path("customer/<int:pk>/", customer.CustomerDetailView.as_view(), name="customer"),
+    path("add-customer/", customer.CustomerCreateView.as_view(), name="add-customer"),
     path("customers/", customer.CustomerListView.as_view(), name="customers"),
     path("deposits/", customer.DepositListView.as_view(), name="deposits"),
     path("withdrawals/", customer.WithdrawalListView.as_view(), name="withdrawals"),
@@ -38,3 +40,8 @@ urlpatterns = [
     path("login/", user.LoginView.as_view(), name="login"),
     path("logout/", user.LogoutView.as_view(), name="logout")
 ]
+
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

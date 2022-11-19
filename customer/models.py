@@ -15,8 +15,9 @@ class Customer(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     passport = models.ImageField(upload_to=image_location, default='/defaults/profile-picture.png')
-    phone = models.CharField(max_length=20, null=True, blank=True)
-    address = models.TextField()
+    email =  models.EmailField(null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=False, unique=True)
+    address = models.TextField(null=True, blank=True)
     
     def __str__(self):
         return self.name
@@ -32,6 +33,7 @@ class Deposit(models.Model):
     last_saved = models.DateTimeField(auto_now=True)
     amount = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0, help_text="Customer's account balance after deposit entry")
+    is_deposit = models.BooleanField(default=True)
     
     
 class Withdrawal(models.Model):
@@ -41,3 +43,5 @@ class Withdrawal(models.Model):
     last_saved = models.DateTimeField(auto_now=True)
     amount = models.DecimalField(decimal_places=2, max_digits=12, default=0)
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0, help_text="Customer's account balance after deposit entry")
+    is_withdrawal = models.BooleanField(default=True)
+    
