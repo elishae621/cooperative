@@ -98,10 +98,10 @@ if env('PRODUCTION'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'freights360$second',
-            'USER': 'freights360',
+            'NAME': 'cooperative$default',
+            'USER': 'cooperative',
             'PASSWORD': env('DATABASE_PASSWORD'),
-            'HOST': 'freights360.mysql.pythonanywhere-services.com',
+            'HOST': 'cooperative.mysql.pythonanywhere-services.com',
             'PORT': '3306',
         }
     }
