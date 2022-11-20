@@ -156,3 +156,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "user.User"
 
 LOGIN_URL = reverse_lazy("login")
+
+ADMINS = [('CTO', 'elishae621@gmail.com'),]

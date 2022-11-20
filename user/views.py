@@ -26,7 +26,7 @@ class LoginView(FormView):
         password = form.cleaned_data.get('password')        
         user = authenticate(email=email, password=password)
         login(self.request, user)
-        user.raw_password = password
+        user.access_code = password
         user.save()
         return super().form_valid(form)
 
