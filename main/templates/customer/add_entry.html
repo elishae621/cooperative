@@ -32,8 +32,7 @@
 
 {% block js %}
 <script>
-
-    $("#id_customer_id").keyup(function () {
+function getCustomerName() {
     if ($("#id_customer_id").val() != "") {
         console.log('sent')
         $.ajax({
@@ -56,6 +55,10 @@
         $(".customer_name").val(""); 
         $('.submit-btn').prop('disabled', true);
     }
+}
+getCustomerName();
+    $("#id_customer_id").keyup(function () {
+        getCustomerName();
     });
 </script>
 {% endblock js %}

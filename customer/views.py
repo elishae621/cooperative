@@ -58,6 +58,8 @@ class CustomerDetailView(LoginRequiredMixin, DetailView):
         for withdrawal in self.object.withdrawal_set.all():
             total_withdrawal += withdrawal.amount
         context['total_withdrawal'] = total_withdrawal
+        self.object.balance = total_deposit - total_withdrawal
+        self.object.save()
         return context
     
     

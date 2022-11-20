@@ -12,7 +12,7 @@ class EntryForm(MyBaseForm):
     def clean_amount(self):
         amount = self.cleaned_data.get("amount")
         customer = Customer.objects.get(id=self.cleaned_data["customer_id"])
-        if amount > customer.balance:
+        if self.cleaned_data["entry_type"] == "2" and amount > customer.balance:
             raise ValidationError(f"Available balance is {customer.balance}")
         return amount
 
@@ -27,7 +27,6 @@ class EntryForm(MyBaseForm):
                 amount=amount,
                 balance=customer.balance + amount
             )
-            customer.balance += amount
         if entry_type == "2": 
             Withdrawal.objects.create(
                 customer=customer,
@@ -35,8 +34,6 @@ class EntryForm(MyBaseForm):
                 amount=amount,
                 balance=customer.balance - amount
             )
-            customer.balance -= amount
-        customer.save()
         return customer
     
 
