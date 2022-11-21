@@ -18,6 +18,7 @@ class Customer(models.Model):
     email =  models.EmailField(null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=False, unique=True)
     address = models.TextField(null=True, blank=True)
+    user = models.ForeignKey("user.User", null=True, blank=False, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
@@ -35,6 +36,9 @@ class Deposit(models.Model):
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0, help_text="Customer's account balance after deposit entry")
     is_deposit = models.BooleanField(default=True)
     
+    def __str__(self):
+        return f"{self.amount} for {self.customer}"
+    
     
 class Withdrawal(models.Model):
     customer = models.ForeignKey(Customer, null=True, blank=False, on_delete=models.CASCADE)
@@ -45,3 +49,23 @@ class Withdrawal(models.Model):
     balance = models.DecimalField(decimal_places=2, max_digits=12, default=0, help_text="Customer's account balance after deposit entry")
     is_withdrawal = models.BooleanField(default=True)
     
+    def __str__(self):
+        return f"{self.amount} for {self.customer}"
+    
+    
+class DailySummary(models.Model):
+    date = models.DateField(null=True, blank=False, unique=True)
+    total_deposit = models.IntegerField(default=0)
+    total_withdrawal = models.IntegerField(default=0)
+    no_of_deposits = models.IntegerField(default=0)
+    no_of_withdrawals = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return self.date
+    
+    def reset(self):
+        self.total_deposit = 0
+        self.total_withdrawal = 0
+        self.no_of_deposits = 0
+        self.no_of_withdrawals = 0
+        return self.save()

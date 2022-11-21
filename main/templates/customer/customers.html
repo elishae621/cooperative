@@ -6,8 +6,11 @@
   <thead>
     <tr>
       <th>S/N</th>
-      <th>ID</th>
       <th>Customer Name</th>
+        {% if user.is_staff %}
+      <th>Added by</th>
+        {% endif %}
+      <th>ID</th>
       <th>Date Added</th>
       <th>Phone</th>
       <th>Address</th>
@@ -18,8 +21,13 @@
     {% for customer in customers %}
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>{{ customer.id }}</td>
+        {% if user.is_staff %}
       <td><a href="{{ customer.get_absolute_url }}">{{ customer.name }}</a></td>
+      <td>{{ customer.user.name }}</td>
+        {% else %}
+      <td>{{ customer.name }}</td>
+        {% endif %}
+      <td>{{ customer.id }}</td>
       <td>{{ customer.date_added }}</td>
       <td>{{ customer.phone }}</td>
       <td>{{ customer.address }}</td>

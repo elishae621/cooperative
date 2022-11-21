@@ -8,12 +8,13 @@ from customer.forms import EntryForm, CustomerCreateForm
 from customer.models import Customer, Deposit, Withdrawal
 from itertools import chain
 from django.contrib.auth.mixins import LoginRequiredMixin
+from user.mixins import StaffRequiredMixin
 
 
 class AddEntryView(LoginRequiredMixin, FormView):
     template_name = 'customer/add_entry.html'
     form_class = EntryForm
-    success_url = reverse_lazy('overview')
+    success_url = reverse_lazy('entries-today')
     
     def form_valid(self, form):
         form.save(self.request.user)
@@ -39,8 +40,14 @@ class CustomerCreateView(LoginRequiredMixin, CreateView):
     form_class = CustomerCreateForm
     success_url = reverse_lazy("customers")
     
+    def form_valid(self, form):
+        customer = form.save()
+        customer.user = self.request.user
+        customer.save()
+        return HttpResponseRedirect(self.success_url)
     
-class CustomerDetailView(LoginRequiredMixin, DetailView):
+    
+class CustomerDetailView(StaffRequiredMixin, DetailView):
     template_name = "customer/customer.html"
     model = Customer 
     context_object_name = "customer"
@@ -68,16 +75,14 @@ class CustomerListView(LoginRequiredMixin, ListView):
     template_name = "customer/customers.html"
     model = Customer
     context_object_name = "customers"
+    ordering = ["name", "balance"]
     
 
-class DepositListView(LoginRequiredMixin, ListView):
-    template_name = "customer/deposits.html"
+class EntryListView(StaffRequiredMixin, ListView):
+    template_name = "customer/entries.html"
     model = Deposit 
-    context_object_name = "deposits"
+    context_object_name = "entries"
     
-
-class WithdrawalListView(LoginRequiredMixin, ListView):
-    template_name = "customer/withdrawals.html"
-    model = Withdrawal 
-    context_object_name = "withdrawals"
-    
+    def get_queryset(self):
+        entries = sorted(chain(list(Deposit.objects.all()), list(Withdrawal.objects.all())), key=lambda instance: instance.date_created, reverse=True) 
+        return entries

@@ -24,18 +24,18 @@
         rel="stylesheet" />
 </head>
 
-<body  data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true"  data-set-preferred-mode-onload="true">
+<body data-dm-shortcut-enabled="true"
+    data-sidebar-shortcut-enabled="true"
+    data-set-preferred-mode-onload="true">
     <!-- Modals go here -->
     <!-- Reference: https://www.gethalfmoon.com/docs/modal -->
     <!-- Page wrapper start -->
     <div class="page-wrapper with-navbar with-sidebar"
         data-sidebar-type="full-height overlayed-sm-and-down">
-
         <!-- logout form -->
         <form action="{% url 'logout' %}"
             class="d-none logout-form"
             method="POST"> {% csrf_token %} </form>
-
         <div class="sticky-alerts"></div>
         <!-- Navbar start -->
         <nav class="navbar justify-content-between">
@@ -61,15 +61,11 @@
                     <i class="fa fa-moon-o"
                         aria-hidden="true"></i>
                     <span class="sr-only">Toggle dark mode</span> <!-- sr-only = only for screen readers -->
-                </button>
-                {% if user.is_authenticated %}
-                 <button class="btn btn-primary logout-btn" onclick="logout()"
-                    type="button">Sign out</button> 
-                {% else %}
-                <button class="btn btn-primary"
-                    type="button"><a href="{% url 'login' %}" class="text-white">Sign in</a></button>
-                {% endif %}
-            </div>
+                </button> {% if user.is_authenticated %} <button class="btn btn-primary logout-btn"
+                    onclick="logout()"
+                    type="button">Sign out</button> {% else %} <button class="btn btn-primary"
+                    type="button"><a href="{% url 'login' %}"
+                        class="text-white">Sign in</a></button> {% endif %} </div>
         </nav>
         <!-- Navbar end -->
         <!-- Sidebar overlay -->
@@ -84,35 +80,33 @@
                 <!-- Sidebar links and titles -->
                 <h5 class="sidebar-title">General</h5>
                 <div class="sidebar-divider"></div>
-                <a href="{% url 'overview' %}"
-                    class="sidebar-link overview">Overview</a>
                 <a href="{% url 'add-entry' %}"
                     class="sidebar-link add-entry">Add Entry</a>
                 <a href="{% url 'add-customer' %}"
                     class="sidebar-link add-customer">Add Customer</a>
+                <a href="{% url 'entries-today' %}"
+                    class="sidebar-link entries-today">Entries Today</a>
                 <a href="{% url 'customers' %}"
                     class="sidebar-link customers">Customers</a>
-                <a href="{% url 'deposits' %}"
-                    class="sidebar-link deposits">Deposits</a>
-                <a href="{% url 'withdrawals' %}"
-                    class="sidebar-link withdrawals">Withdrawals</a>
-                <br />
-                {% if user.is_staff %}
-                <h5 class="sidebar-title">Admin Only</h5>
+                <br /> {% if user.is_staff %} <h5 class="sidebar-title">Admin Only</h5>
                 <div class="sidebar-divider"></div>
+                <a href="{% url 'overview' %}"
+                    class="sidebar-link overview">Overview</a>
+                <a href="{% url 'entries' %}"
+                    class="sidebar-link entries">Entries</a>
+                <a href="{% url 'summaries' %}"
+                    class="sidebar-link summaries">Summaries</a>
                 <a href="{% url 'users' %}"
                     class="sidebar-link users">Users</a>
                 <a href="{% url 'add-user' %}"
-                    class="sidebar-link add-user">Add User</a>
-                {% endif %}
+                    class="sidebar-link add-user">Add User</a> {% endif %}
             </div>
         </div>
         <!-- Sidebar end -->
         <!-- Content wrapper start -->
         <div class="content-wrapper">
             <div class="d-flex justify-content-center align-content-center flex-column p-20">
-                {% block main_content %}{% endblock main_content %}
-            </div>
+                {% block main_content %}{% endblock main_content %} </div>
         </div>
         <!-- Content wrapper end -->
     </div>
@@ -123,41 +117,41 @@
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
-    // logout
-    $('.logout-btn').on('click', function () {
-        $('form.logout-form').submit();
-    });
-
-    $('.sidebar-link a').removeClass("active");
-    switch(window.location.pathname) {
-        case "{% url 'overview' %}": 
-            $('.sidebar-link.overview').addClass("active");
-            break;
-        case "{% url 'add-entry' %}": 
-            $('.sidebar-link.add-entry').addClass("active");
-            break;
-        case "{% url 'add-customer' %}": 
-            $('.sidebar-link.add-customer').addClass("active");
-            break;
-        case "{% url 'customers' %}": 
-            $('.sidebar-link.customers').addClass("active");
-            break;
-        case "{% url 'deposits' %}": 
-            $('.sidebar-link.deposits').addClass("active");
-            break;
-        case "{% url 'withdrawals' %}": 
-            $('.sidebar-link.withdrawals').addClass("active");
-            break;
-        case "{% url 'users' %}": 
-            $('.sidebar-link.users').addClass("active");
-            break;
-        case "{% url 'add-user' %}": 
-            $('.sidebar-link.add-user').addClass("active");
-            break;
-    }
-    </script>
-    
-    {% block js %}{% endblock js %}
+        // logout
+        $('.logout-btn').on('click', function () {
+            $('form.logout-form').submit();
+        });
+        $('.sidebar-link a').removeClass("active");
+        switch (window.location.pathname) {
+            case "{% url 'overview' %}":
+                $('.sidebar-link.overview').addClass("active");
+                break;
+            case "{% url 'add-entry' %}":
+                $('.sidebar-link.add-entry').addClass("active");
+                break;
+            case "{% url 'add-customer' %}":
+                $('.sidebar-link.add-customer').addClass("active");
+                break;
+            case "{% url 'entries-today' %}":
+                $('.sidebar-link.entries-today').addClass("active");
+                break;
+            case "{% url 'customers' %}":
+                $('.sidebar-link.customers').addClass("active");
+                break;
+            case "{% url 'entries' %}":
+                $('.sidebar-link.entries').addClass("active");
+                break;
+            case "{% url 'summaries' %}":
+                $('.sidebar-link.summaries').addClass("active");
+                break;
+            case "{% url 'users' %}":
+                $('.sidebar-link.users').addClass("active");
+                break;
+            case "{% url 'add-user' %}":
+                $('.sidebar-link.add-user').addClass("active");
+                break;
+        }
+    </script> {% block js %}{% endblock js %}
 </body>
 
 </html>

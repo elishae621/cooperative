@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>S/N</th>
-      <th>ID</th>
       <th>Name</th>
+      <th>ID</th>
       <th>Date Joined</th>
       <th>Email</th>
       <th>Phone</th>
@@ -20,8 +20,8 @@
     {% for user in users %}
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>{{ user.id }}</td>
       <td>{{ user.name }}</td>
+      <td>{{ user.id }}</td>
       <td>{{ user.date_joined }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.phone }}</td>

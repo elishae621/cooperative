@@ -10,6 +10,6 @@ class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
     def dispatch(self, request, *args, **kwargs):
         is_staff = self.get_test_func()()
         if not is_staff:
-            return redirect(reverse('overview'))
+            return redirect(reverse('add-entry'))
         return super().dispatch(request, *args, **kwargs)
 

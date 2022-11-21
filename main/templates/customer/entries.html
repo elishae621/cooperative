@@ -1,36 +1,38 @@
 {% extends "main/base.html" %} {% load static %}
  {% block main_content %} 
-{% if withdrawals %}
+{% if entries %}
 <div class="table-responsive">
 <table class="table table-bordered ">
   <thead>
     <tr>
       <th>S/N</th>
-      <th>ID</th>
       <th>Customer Name</th>
+      <th>ID</th>
       <th>Date Created</th>
       <th>Amount</th>
-      <th>User</th>
+      <th>Entry Type</th>
+      <th>Entered By</th>
       <th>Balance</th>
     </tr>
   </thead>
   <tbody>
-    {% for withdrawal in withdrawals %}
+    {% for entry in entries %}
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>{{ withdrawal.id }}</td>
-      <td>{{ withdrawal.customer }}</td>
-      <td>{{ withdrawal.date_created }}</td>
-      <td>{{ withdrawal.amount }}</td>
-      <td>{{ withdrawal.user }}</td>
-      <td>{{ withdrawal.balance }}</td>
+      <td>{{ entry.customer.name }}</td>
+      <td>{{ entry.id }}</td>
+      <td>{{ entry.date_created }}</td>
+      <td>{{ entry.amount }}</td>
+      <td>{% if entry.is_deposit %}DEPOSIT{% else %}WITHDRAWAL{% endif %}</td>
+      <td>{{ entry.user }}</td>
+      <td>{{ entry.balance }}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 </div>
 {% else %}
-<p>No withdrawals yet</p>
+<p>No entries yet</p>
 {% endif %}
 {% endblock main_content %}
 

@@ -24,18 +24,19 @@ from customer import views as customer
 urlpatterns = [
     path("admin/", admin.site.urls),
     
-    path("", main.HomeView.as_view(), name="overview"),
+    path("", customer.AddEntryView.as_view(), name="add-entry"),
     
-    path("add-entry/", customer.AddEntryView.as_view(), name="add-entry"),
+    path("overview/", main.HomeView.as_view(), name="overview"),
     path("get-customer-name/", customer.AjaxReturnCustomerID.as_view(), name="get-customer-name"),
     path("customer/<int:pk>/", customer.CustomerDetailView.as_view(), name="customer"),
     path("add-customer/", customer.CustomerCreateView.as_view(), name="add-customer"),
     path("customers/", customer.CustomerListView.as_view(), name="customers"),
-    path("deposits/", customer.DepositListView.as_view(), name="deposits"),
-    path("withdrawals/", customer.WithdrawalListView.as_view(), name="withdrawals"),
+    path("entries/", customer.EntryListView.as_view(), name="entries"),
     
     path("users/", user.UserListView.as_view(), name="users"),
-    path("add-user", user.UserCreateView.as_view(), name="add-user"),
+    path("add-user/", user.UserCreateView.as_view(), name="add-user"),
+    path("today/", user.UserEntriesTodayView.as_view(), name="entries-today"),
+    path("summaries/", user.DailySummaryView.as_view(), name="summaries"),
     
     path("login/", user.LoginView.as_view(), name="login"),
     path("logout/", user.LogoutView.as_view(), name="logout")
